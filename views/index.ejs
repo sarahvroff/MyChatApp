@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sarah's Chat!</title>
+    <style>
+        body { font: 16px Helvetica, Arial; }
+        form { margin-bottom: 25px; background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%;}
+        form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; border-radius: 10px;}
+        form button { font: 15px Helvetica, Arial; width: 9%; background: light grey; border: none; padding: 10px; margin-left: 2%; border-radius: 10px;}
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <script src="../../socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js" integrity="sha512-KCyhJjC9VsBYne93226gCA0Lb+VlrngllQqeCmX+HxBBHTC4HX2FYgEc6jT0oXYrLgvfglK49ktTTc0KVC1+gQ==" crossorigin="anonymous"></script>
+  </head>
+  <body style="background: white;">
+      <header align="center" style="margin-top: 5px;">
+          <h1>Welcome to Sarah's Chat!</h1>
+      </header>
+      <br>
+      <br>
+      <br>
+    <ul id="messages"></ul>
+    <form action="/" method="POST" id="chatForm">
+      <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="Type your message" /><button>Send</button>
+    </form>
+    <script>
+      var socket = io.connect('https://chatorzo-2.zdev1.repl.co');
+      $('form').submit(function(e){
+        e.preventDefault();
+        socket.emit('chat_message', $('#txt').val());
+        $('#txt').val('');
+        return false;
+      });
+      socket.on('chat_message', function(msg){
+        $('#messages').append($('<li>').html(msg));
+      });
+      socket.on('is_online', function(username) {
+        $('#messages').append($('<li>').html(username));
+      });
+      var username = prompt('Username:');
+      socket.emit('username', username);
+    </script>
+  </body>
+</html>

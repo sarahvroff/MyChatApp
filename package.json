@@ -1,0 +1,27 @@
+{
+  "name": "MyChatApp",
+  "version": "1.0.0",
+  "description": "A messaging application made with HTML and Javascript",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sarahvroff/MyChatApp"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sarahvroff/MyChatApp/issues"
+  },
+  "homepage": "https://github.com/sarahvroff/MyChatApp#readme",
+  "dependencies": {
+    "bad-words": "^3.0.3",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "marked": "^1.1.1",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+  }
+}
